@@ -1,0 +1,16 @@
+image: patrickmckernin/baserails2022winter
+
+tasks:
+  - init: bin/setup
+ports:
+  - port: 3000
+    onOpen: open-preview
+  - port: 9515
+    onOpen: ignore
+
+
+vscode:
+  extensions:
+    - vortizhe.simple-ruby-erb
+    - mbessey.vscode-rufo
+    - aliariff.vscode-erb-beautify
