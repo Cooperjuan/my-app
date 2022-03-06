@@ -1,6 +1,5 @@
 hi
 
-<%= @latitude %>
 
 <div>
   <div id="map" style='width: 800px; height: 400px;'></div>
@@ -35,5 +34,21 @@ hi
   };
   
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8RrOFB0dPsF-leqeFJdmX3yOvcQbfNyY&callback=initMap"
+<script src="https://maps.googleapis.com/maps/api/js?key=<AIzaSyD8RrOFB0dPsF-leqeFJdmX3yOvcQbfNyY&callback=initMap>"
 async defer></script>
+
+
+<form action="/send_message">
+  <label for="message"> Personalize your message:</ label>
+  <input id="message" name="user_input" placeholder="Hi, I'll be at <%= @street_address %>">
+
+  <input name="user_id" type="hidden" value="<%= session.fetch(:user_id) %>">
+
+  <input name="user_location" type="hidden" value="<%= @street_address %>">
+
+  <button>
+    Submit
+  </button>
+
+  </form>
+

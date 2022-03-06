@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
   #before_action(:load_current_user)
   
+
+  require "twilio-ruby"
+
   def homepage
     render({ :template => "misc_templates/home"})
   end
@@ -32,6 +35,9 @@ class ApplicationController < ActionController::Base
   def show_map
     # Parameters: {"user_street_address"=>"Merchandise Mart, Chicago"}
 
+   @gmap_key = ENV.fetch("GMAPS_KEY")
+   
+   
     @street_address = params.fetch("user_input")
 
     @maps_url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + @street_address + "&key=AIzaSyD8RrOFB0dPsF-leqeFJdmX3yOvcQbfNyY"
@@ -57,14 +63,35 @@ class ApplicationController < ActionController::Base
   end
 
 
+  def send_message
 
 
 
+    @message = params.fetch("user_input")
+
+    @user_id = params.fetch("user_id")
+
+    @user_location = params.fetch("user_id")
+
+    twilio_sid = ENV.fetch("TWILIO_ACCOUNT_SID")
+    twilio_token = ENV.fetch("TWILIO_AUTH_TOKEN")
+    twilio_sending_number = ENV.fetch("TWILIO_SENDING_NUMBER")
 
 
+    twilio_client = Twilio::REST::Client.new(twilio_sid, twilio_token)
 
 
+    sms_parameters = {
+  :from => "+13126636198",
+  :to => "+13126871401",
+  :body => @message
+  }
 
 
+  twilio_client.api.account.messages.create(sms_parameters)
+
+render({ :template => "misc_templates/send_message"})
+
+  end
 
 end
