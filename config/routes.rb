@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
   get("/", { :controller => "application", :action => "homepage" })
+
+  get("/address_form", { :controller => "application", :action => "address_form" })
+
+  get("/show_maps", { :controller => "application", :action => "show_map" })
  
 
   # Routes for the User account:
