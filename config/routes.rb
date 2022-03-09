@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   post("/modify_friend/:path_id", { :controller => "friends", :action => "update" })
   
   # DELETE
-  get("/delete_friend/:path_id", { :controller => "friends", :action => "destroy" })
+  post("/delete_friend", { :controller => "friends", :action => "destroy" })
 
   #------------------------------
 

@@ -53,7 +53,7 @@
         </th>
 
         <th>
-          Details
+          Location
         </th>
 
 
@@ -66,13 +66,19 @@
 
 
         <td>
-          <%= a_friend.influencer_id %>
+          <% @user = User.where({ :id => a_friend.influencer_id }).at(0) %>
+
+          <%= @user.username %>
+
         </td>
 
         <td>
-           <a href="/friends/<%= a_friend.influencer_id %>">
-            Show details
-          </a>
+
+          <%  %>
+
+          <%=  %>
+
+
         </td>
       </tr>
       <% end %>
@@ -112,13 +118,15 @@
         <th>
         </th>
       </tr>
-      <%= @list_of_followers %>
+      <% @list_of_followers %>
 
       <% @list_of_followers.each do |a_friend| %>
       <tr>
  
         <td>
-          <%= a_friend.owner_id %>
+          <% @user = User.where({ :id => a_friend.owner_id }).at(0) %>
+
+          <%= @user.username %>
         </td>
 
         <td>
@@ -126,54 +134,18 @@
            Show details
           </a>
         </td>
-      </tr>
-      <% end %>
-    </table>
-  </div>
-</div>
-
-<hr>
-
-<div>
-  <div>
-    <h1>
-      List of all requests
-    </h1>
-  </div>
-</div>
-
-
-<hr>
-<div>
-  <div>
-    <table border="1">
-      <tr>
-
-        <th>
-          Influencer
-        </th>
-
-        <th>
-          Details
-        </th>
-
-
-        <th>
-        </th>
-      </tr>
-
-      <% @list_of_requests.each do |a_friend| %>
-      <tr>
- 
-        <td>
-          <%= a_friend.influencer_id %>
-        </td>
 
         <td>
-           <a href="/friends/<%= a_friend.id %>">
-           Show details
-          </a>
+          <form action="/delete_friend" method="post">
+            <input name="influencer_id" type="hidden" value="<%= session.fetch(:user_id) %>">
+            <input name="follower_id" type="hidden" value="<%= a_friend.owner_id %>">
+
+          <button>
+            Delete Follower
+          </button>
         </td>
+
+
       </tr>
       <% end %>
     </table>

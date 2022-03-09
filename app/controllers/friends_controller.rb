@@ -94,13 +94,14 @@ class FriendsController < ApplicationController
 
 
 
-
-
   def destroy
-    the_id = params.fetch("path_id")
-    the_friend = Friend.where({ :id => the_id }).at(0)
 
-    the_friend.destroy
+    influencer_id = params.fetch("influencer_id")
+    follower_id = params.fetch("follower_id")
+    
+    friendship = Friend.where({ :owner_id => follower_id }).where({ :influencer_id => influencer_id }).at(0)
+
+    friendship.destroy
 
     redirect_to("/friends", { :notice => "Friend deleted successfully."} )
   end

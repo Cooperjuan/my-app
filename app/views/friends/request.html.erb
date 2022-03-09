@@ -4,12 +4,12 @@
     <table border="1">
 
       <% @list_of_requests.each do |a_friend| %>
+
+      <% if a_friend.status == "pending" %>
+      
+      <% #follower = User.where ({ :id => a_friend.owner_id}) %>
       <tr>
         <td>
-      <% if a_friend.status == "pending" %>
-
-      <% #follower = User.where ({ :id => a_friend.owner_id}) %>
-
         Request from:  #follower.username 
         Request from: <%= a_friend.owner_id %>
         </td>
@@ -40,11 +40,6 @@
         </td>
 
       <% else %>
-<td>
-</td>
-
-<td>
-</td>
 
       <% end %>
       

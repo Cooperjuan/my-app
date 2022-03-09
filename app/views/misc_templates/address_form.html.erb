@@ -1,5 +1,5 @@
 <form action="/show_maps">
-  <label for="adress_field"> Street adress:</ label>
+  <label for="adress_field"> I'll be at (Street adress) :</ label>
   <input id="adress_field" name="user_input">
 
   <button>
@@ -7,3 +7,24 @@
   </button>
 
   </form>
+
+
+<% user = User.where({ :id => session.fetch(:user_id)}).at(0) %>
+
+
+<form action="/send_message">
+  
+  <input name="user_input" type="hidden" value="Hi it's <%= user.first_name %> <%= user.last_name %>, I'm home">
+ 
+  <input name="user_id" type="hidden" value="<%= session.fetch(:user_id) %>">
+
+  <input name="user_location" type="hidden" value="<%= user.home_location %>">
+
+  <button>
+    I'm home!
+  </button>
+
+  </form>
+
+
+

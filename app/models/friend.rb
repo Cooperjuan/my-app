@@ -10,4 +10,9 @@
 #  owner_id      :integer
 #
 class Friend < ApplicationRecord
+
+  belongs_to(:influencer, { :required => true, :class_name => "User", :foreign_key => "influencer_id", :counter_cache => true })
+
+  belongs_to(:owner, { :required => true, :class_name => "User", :foreign_key => "owner_id" })
+  
 end

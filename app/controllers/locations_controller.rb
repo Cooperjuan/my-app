@@ -43,6 +43,38 @@ class LocationsController < ApplicationController
        render({ :template => "misc_templates/show_maps"})
  
     end
+
+
+
+    def show_map_to_friends
+ 
+      @gmap_key = ENV.fetch("GMAPS_KEY")
+      
+      @street_address = params.fetch("user_input")
+   
+       @maps_url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + @street_address + "&key=" + @gmap_key
+   
+       @raw_json_string = open(@maps_url).read
+   
+       @parsed_json = JSON.parse(@raw_json_string)
+   
+       @results_array = @parsed_json.fetch("results")
+   
+       @first_result = @results_array.at(0)
+       
+       @geometry_hash = @first_result.fetch("geometry")
+   
+       @location_hash = @geometry_hash.fetch("location")
+   
+       @latitude = @location_hash.fetch("lat")
+       @longitude = @location_hash.fetch("lng")
+    
+       @address_components_hash = @first_result.fetch("formatted_address")
+   
+       #@route = @address_components_hash.fetch("route")
+         render({ :template => "misc_templates/show_maps_to_friends"})
+   
+      end
  
  
    def send_message
@@ -51,24 +83,30 @@ class LocationsController < ApplicationController
  
      @user_id = params.fetch("user_id")
  
-     @user_location = params.fetch("user_id")
- 
+      
      twilio_sid = ENV.fetch("TWILIO_ACCOUNT_SID")
      twilio_token = ENV.fetch("TWILIO_AUTH_TOKEN")
-     # twilio_sending_number = ENV.fetch("TWILIO_SENDING_NUMBER")
+     twilio_sending_number = ENV.fetch("TWILIO_SENDING_PHONE_NUMBER")
  
  
-     twilio_client = Twilio::REST::Client.new(twilio_sid, twilio_token)
+    friends = Friend.where({ :influencer_id => @user_id })
+
+    friends.each do |a_friend|
+
+    twilio_client = Twilio::REST::Client.new(twilio_sid, twilio_token)
  
  
      sms_parameters = {
-   :from => "+13126636198",
+   :from => twilio_sending_number,
    :to => "+13126871442",
    :body => @message
    }
  
  
    twilio_client.api.account.messages.create(sms_parameters)
+
+
+    end
  
  render({ :template => "misc_templates/send_message"})
  
