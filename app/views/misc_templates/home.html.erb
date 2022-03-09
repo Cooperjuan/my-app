@@ -1,1 +1,28 @@
 |home page
+
+
+<%if session.fetch(:user_id) != nil %>
+
+
+<dl>
+
+  <dd>
+    <a href="/address_form">
+      Let you friends know where you will be
+    </a>
+  </dd>
+
+</dl>
+  
+
+  <dd>
+    <a href="/friends">
+      Friends
+    </a>
+  </dd>
+
+<% else %>
+
+Sign in to start!
+
+<% end %>

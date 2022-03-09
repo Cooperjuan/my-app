@@ -1,0 +1,118 @@
+<div>
+  <div>
+    <h1>
+      List of all locations
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new location
+    </h2>
+
+    <form action="/insert_location" method="post">
+      <div>
+        <label for="map_url_box">
+          Map url
+        </label>
+
+        <input type="text" id="map_url_box" name="query_map_url">
+      </div>
+
+      <div>
+        <label for="address_box">
+          Address
+        </label>
+
+        <textarea id="address_box" name="query_address" rows="3"></textarea>
+      </div>
+
+      <div>
+        <label for="owner_id_box">
+          Owner
+        </label>
+
+        <input type="text" id="owner_id_box" name="query_owner_id">
+      </div>
+
+      <button>
+        Create location
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Map url
+        </th>
+
+        <th>
+          Address
+        </th>
+
+        <th>
+          Owner
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_locations.each do |a_location| %>
+      <tr>
+        <td>
+          <%= a_location.id %>
+        </td>
+
+        <td>
+          <%= a_location.map_url %>
+        </td>
+
+        <td>
+          <%= a_location.address %>
+        </td>
+
+        <td>
+          <%= a_location.owner_id %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_location.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_location.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/locations/<%= a_location.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

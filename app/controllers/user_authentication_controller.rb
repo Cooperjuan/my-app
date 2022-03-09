@@ -50,8 +50,15 @@ class UserAuthenticationController < ApplicationController
 
     if save_status == true
       session[:user_id] = @user.id
-   
-      redirect_to("/", { :notice => "User account created successfully."})
+
+      @location = Location.new
+      @location.owner_id = @user.id
+      @location.address = "n.a"
+      @location.map_url = "n.a"
+
+      save_status = @location.save
+
+        redirect_to("/", { :notice => "User account created successfully."})
     else
       redirect_to("/user_sign_up", { :alert => @user.errors.full_messages.to_sentence })
     end

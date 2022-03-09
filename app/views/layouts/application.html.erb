@@ -15,7 +15,60 @@
 
   </head>
 
+
+
+<link rel="stylesheet>
+
+
+
+
   <body>
+
+     <ul>
+        <li>
+          <a href="/">
+            Home
+          </a>
+        </li>
+      <!--      Only show the sign up/in links if no one is signed in. Else, show the sign out link.
+      
+      We'll start again at 10:05am.
+      -->
+      <%# if session.keys.exclude?("user_id") %>
+      <% if session.fetch("user_id") == nil %>
+        <li>
+          <a href="/user_sign_up">
+            Sign up
+          </a>
+        </li>
+        <li>
+          <a href="/user_sign_in">
+            Sign in
+          </a>
+        </li>
+      <% else %>
+
+        Signed as 
+        <% @user_id = session.fetch(:user_id) %>
+        <% @user = User.where({ :id => @user_id }).at(0)%>
+        <%= @user.username %>
+
+        <li>
+          <a href="/user_sign_out">
+            Sign out
+          </a>
+        </li>
+      <% end %>
+    </ul>
+
+    <h1 style="color: green">
+      <%= notice %>
+    </h1>
+
+    <h1 style="color: red">
+      <%= alert %>
+    </h1>
+
     <%= yield %>
   </body>
 </html>

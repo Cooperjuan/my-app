@@ -1,0 +1,101 @@
+<div>
+  <div>
+    <h1>
+      Friend #<%= @the_friend.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/friends">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_friend/<%= @the_friend.id %>">
+          Delete friend
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Owner
+      </dt>
+      <dd>
+        <%= @the_friend.owner_id %>
+      </dd>
+
+      <dt>
+        Influencer
+      </dt>
+      <dd>
+        <%= @the_friend.influencer_id %>
+      </dd>
+
+      <dt>
+        Status
+      </dt>
+      <dd>
+        <%= @the_friend.status %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_friend.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_friend.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit friend
+    </h2>
+
+    <form action="/modify_friend/<%= @the_friend.id %>"  method="post" >
+      <div>
+        <label for="owner_id_box">
+          Owner
+        </label>
+
+        <input type="text" id="owner_id_box" name="query_owner_id" value="<%= @the_friend.owner_id %>">
+      </div>
+
+      <div>
+        <label for="influencer_id_box">
+          Influencer
+        </label>
+
+        <input type="text" id="influencer_id_box" name="query_influencer_id" value="<%= @the_friend.influencer_id %>">
+      </div>
+
+      <div>
+        <label for="status_box">
+          Status
+        </label>
+
+        <input type="text" id="status_box" name="query_status" value="<%= @the_friend.status %>">
+      </div>
+
+      <button>
+        Update friend
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>

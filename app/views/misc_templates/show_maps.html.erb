@@ -1,8 +1,23 @@
-hi
+<div>
+Is the below address correct? If not, try a more specific term!
+</div>
 
+<form action="/show_maps">
+  <label for="adress_field"> Street adress:</ label>
+  <input id="adress_field" name="user_input">
+
+  <button>
+    Submit
+  </button>
+
+  </form>
 
 <div>
-  <div id="map" style='width: 800px; height: 400px;'></div>
+
+</div>
+
+<div>
+  <div id="map" style='width: 400px; height: 400px;'></div>
 </div>
 
 <script>
@@ -18,7 +33,7 @@ hi
     });
     
     var marker = new google.maps.Marker({
-      position: {lat: <%= @latitude %>, lng:<%= @longitude %>}, 
+      position: {lat: <%=@latitude%>, lng: <%=@longitude%>}, 
       map: map,
       title: 'Hello World!',
       icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' 
@@ -28,20 +43,23 @@ hi
       infowindow.open(map, marker);
     });
 
-  bounds.extend(new google.maps.LatLng(<%= @latitude %>,<%= @longitude %> ));
+  bounds.extend(new google.maps.LatLng(<%=@latitude%>, <%=@longitude%> ));
 
   map.fitBounds(bounds);
   };
   
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=<AIzaSyD8RrOFB0dPsF-leqeFJdmX3yOvcQbfNyY&callback=initMap>"
+<script src="https://maps.googleapis.com/maps/api/js?key=<%=@gmap_key%>&callback=initMap"
 async defer></script>
 
 
+    
+
 <form action="/send_message">
   <label for="message"> Personalize your message:</ label>
-  <input id="message" name="user_input" placeholder="Hi, I'll be at <%= @street_address %>">
 
+  <textarea id="message" name="user_input">"Hi is Juan, I'll be at <%= @street_address %>. <%= @address_components_hash %>"</textarea>
+ 
   <input name="user_id" type="hidden" value="<%= session.fetch(:user_id) %>">
 
   <input name="user_location" type="hidden" value="<%= @street_address %>">

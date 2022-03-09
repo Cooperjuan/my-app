@@ -1,0 +1,183 @@
+
+
+<a href="/friends/requests">
+  Pending Requests
+</a>
+
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new friend
+    </h2>
+
+
+    <form action="/add_friend" method="post">
+      <div>
+        <label for="username">
+          Username
+        </label>
+
+        <input type="text" id="username" name="username">
+      </div>
+
+       <input name="query_user_id" type="hidden" value="<%= session.fetch(:user_id) %>">
+
+      <button>
+        Add friend
+      </button>
+    </form>
+  </div>
+</div>
+
+
+<div>
+  <div>
+    <h1>
+      List of all people followed
+    </h1>
+  </div>
+</div>
+
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+
+        <th>
+          Influencer
+        </th>
+
+        <th>
+          Details
+        </th>
+
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_followed.each do |a_friend| %>
+      <tr>
+
+
+        <td>
+          <%= a_friend.influencer_id %>
+        </td>
+
+        <td>
+           <a href="/friends/<%= a_friend.influencer_id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+<hr>
+
+
+
+
+
+<div>
+  <div>
+    <h1>
+      List of all followers
+    </h1>
+  </div>
+</div>
+
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+
+        <th>
+          Follower
+        </th>
+
+        <th>
+          Details
+        </th>
+
+
+        <th>
+        </th>
+      </tr>
+      <%= @list_of_followers %>
+
+      <% @list_of_followers.each do |a_friend| %>
+      <tr>
+ 
+        <td>
+          <%= a_friend.owner_id %>
+        </td>
+
+        <td>
+           <a href="/friends/<%= a_friend.owner_id %>">
+           Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h1>
+      List of all requests
+    </h1>
+  </div>
+</div>
+
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+
+        <th>
+          Influencer
+        </th>
+
+        <th>
+          Details
+        </th>
+
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_requests.each do |a_friend| %>
+      <tr>
+ 
+        <td>
+          <%= a_friend.influencer_id %>
+        </td>
+
+        <td>
+           <a href="/friends/<%= a_friend.id %>">
+           Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

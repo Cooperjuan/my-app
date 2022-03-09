@@ -1,12 +1,57 @@
 Rails.application.routes.draw do
 
+  # Routes for the Friend resource:
+
+  # CREATE
+  post("/add_friend", { :controller => "friends", :action => "create" })
+          
+  # READ
+  get("/friends", { :controller => "friends", :action => "index" })
+
+  get("/friends/requests", { :controller => "friends", :action => "requests" })
+  
+  get("/friends/:path_id", { :controller => "friends", :action => "show" })
+  
+  # UPDATE
+
+  post("/reject", { :controller => "friends", :action => "reject" })
+
+  post("/accept", { :controller => "friends", :action => "accept" })
+
+
+  post("/modify_friend/:path_id", { :controller => "friends", :action => "update" })
+  
+  # DELETE
+  get("/delete_friend/:path_id", { :controller => "friends", :action => "destroy" })
+
+  #------------------------------
+
+  # Routes for the Location resource:
+
+  # CREATE
+  post("/insert_location", { :controller => "locations", :action => "create" })
+          
+  # READ
+  get("/locations", { :controller => "locations", :action => "index" })
+  
+  get("/locations/:path_id", { :controller => "locations", :action => "show" })
+  
+  # UPDATE
+  
+  post("/modify_location/:path_id", { :controller => "locations", :action => "update" })
+  
+  # DELETE
+  get("/delete_location/:path_id", { :controller => "locations", :action => "destroy" })
+
+  #------------------------------
+
   get("/", { :controller => "application", :action => "homepage" })
 
-  get("/address_form", { :controller => "application", :action => "address_form" })
+  get("/address_form", { :controller => "locations", :action => "address_form" })
 
-  get("/show_maps", { :controller => "application", :action => "show_map" })
+  get("/show_maps", { :controller => "locations", :action => "show_map" })
 
-  get("/send_message", { :controller => "application", :action => "send_message" })
+  get("/send_message", { :controller => "locations", :action => "send_message" })
  
 
   # Routes for the User account:

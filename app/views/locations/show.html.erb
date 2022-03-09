@@ -1,0 +1,101 @@
+<div>
+  <div>
+    <h1>
+      Location #<%= @the_location.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/locations">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_location/<%= @the_location.id %>">
+          Delete location
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Map url
+      </dt>
+      <dd>
+        <%= @the_location.map_url %>
+      </dd>
+
+      <dt>
+        Address
+      </dt>
+      <dd>
+        <%= @the_location.address %>
+      </dd>
+
+      <dt>
+        Owner
+      </dt>
+      <dd>
+        <%= @the_location.owner_id %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_location.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_location.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit location
+    </h2>
+
+    <form action="/modify_location/<%= @the_location.id %>"  method="post" >
+      <div>
+        <label for="map_url_box">
+          Map url
+        </label>
+
+        <input type="text" id="map_url_box" name="query_map_url" value="<%= @the_location.map_url %>">
+      </div>
+
+      <div>
+        <label for="address_box">
+          Address
+        </label>
+
+        <textarea id="address_box" name="query_address"><%= @the_location.address %></textarea>
+      </div>
+
+      <div>
+        <label for="owner_id_box">
+          Owner
+        </label>
+
+        <input type="text" id="owner_id_box" name="query_owner_id" value="<%= @the_location.owner_id %>">
+      </div>
+
+      <button>
+        Update location
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
