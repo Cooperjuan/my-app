@@ -1,6 +1,12 @@
 desc "Hydrate the database with some sample data to look at so that developing is easier"
 task({ :sample_data => :environment}) do
 
+
+
+  User.destroy_all
+  Location.destroy_all
+  Friend.destroy_all
+ 
   name = ["Juan"]
   bool = [true, false]
   
@@ -40,8 +46,28 @@ p user.errors.full_messages
 
   end
 
-  bool = ["accepted", "pending", "rejected"]
 
+  #  id         :integer          not null, primary key
+#  address    :text
+#  map_url    :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  owner_id   :integer
+  
+bool = ["Harper Center Booth", "Willis Tower", "The White House"]
+
+users = User.all
+
+@gmap_key = ENV.fetch("GMAPS_KEY")
+      
+100.times do 
+  loc = Location.new
+  loc.address = bool.sample
+  loc.map_url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + bool.sample + "&key=" + @gmap_key
+  loc.owner_id = users.sample.id 
+  loc.save
+
+end
 
 
 end

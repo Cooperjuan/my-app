@@ -74,9 +74,9 @@
 
         <td>
 
-          <%  %>
+          <% @user_location = Location.where({ :owner_id => a_friend.influencer_id }).at(0) %>
 
-          <%=  %>
+          <%= @user_location.address %>
 
 
         </td>
