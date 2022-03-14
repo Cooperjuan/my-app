@@ -7,11 +7,13 @@
 
       <% if a_friend.status == "pending" %>
       
-      <% #follower = User.where ({ :id => a_friend.owner_id}) %>
+      <% #follower = User.where({ :id => a_friend.owner_id}) %>
       <tr>
         <td>
-        Request from:  #follower.username 
-        Request from: <%= a_friend.owner_id %>
+     
+        <% username = User.where({ :id => a_friend.owner_id }).at(0) %>
+
+        Request from: <%= username.username %>
         </td>
         <td>
 

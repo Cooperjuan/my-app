@@ -14,3 +14,5 @@ class Location < ApplicationRecord
   validates(:owner_id, { :uniqueness => true })
 
 end
+
+

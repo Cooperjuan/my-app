@@ -5,9 +5,6 @@ class LocationsController < ApplicationController
 
   def address_form
 
-
-
-
     render({ :template => "misc_templates/address_form"})
   end  
 
@@ -29,7 +26,13 @@ class LocationsController < ApplicationController
      @results_array = @parsed_json.fetch("results")
  
      @first_result = @results_array.at(0)
-     
+
+      if @first_result == nil
+
+      redirect_to("/address_form", { :alert => "Location wasnt found, please be more specific in the location" })
+
+      else
+            
      @geometry_hash = @first_result.fetch("geometry")
  
      @location_hash = @geometry_hash.fetch("location")
@@ -41,6 +44,8 @@ class LocationsController < ApplicationController
  
      #@route = @address_components_hash.fetch("route")
        render({ :template => "misc_templates/show_maps"})
+
+      end
  
     end
 
@@ -79,10 +84,17 @@ class LocationsController < ApplicationController
  
    def send_message
   
-     @message = params.fetch("user_input")
- 
-     @user_id = params.fetch("user_id")
- 
+    @user_id = params.fetch("user_id")
+    @user_location = params.fetch("user_location")
+
+    the_location = Location.where({ :owner_id => @user_id }).at(0)
+
+    the_location.address = params.fetch("user_location")
+    the_location.owner_id = params.fetch("user_id")
+    the_location.save
+
+    @message = params.fetch("user_input")
+  
       
      twilio_sid = ENV.fetch("TWILIO_ACCOUNT_SID")
      twilio_token = ENV.fetch("TWILIO_AUTH_TOKEN")
@@ -93,22 +105,27 @@ class LocationsController < ApplicationController
 
     friends.each do |a_friend|
 
+    if a_friend.status == "accepted"
+
+    @friend_user = User.where({ :id => a_friend.owner_id}).at(0)
+
     twilio_client = Twilio::REST::Client.new(twilio_sid, twilio_token)
  
- 
-     sms_parameters = {
+    sms_parameters = {
    :from => twilio_sending_number,
-   :to => "+13126871442",
+   :to => @friend_user.phone,
    :body => @message
    }
  
- 
    twilio_client.api.account.messages.create(sms_parameters)
+    
+    else 
 
+    end
 
     end
  
- render({ :template => "misc_templates/send_message"})
+    redirect_to("/", { :notice => "Message sent successfully." })
  
    end
  

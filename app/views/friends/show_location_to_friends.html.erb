@@ -37,20 +37,3 @@
 async defer></script>
 
 
-    
-
-<form action="/send_message">
-  <label for="message"> Personalize your message:</ label>
-
-  <textarea id="message" name="user_input">"Hi is Juan, I'll be at <%= @street_address %>. <%= @address_components_hash %>"</textarea>
- 
-  <input name="user_id" type="hidden" value="<%= session.fetch(:user_id) %>">
-
-  <input name="user_location" type="hidden" value="<%= @street_address %>">
-
-  <button>
-    Submit
-  </button>
-
-  </form>
-

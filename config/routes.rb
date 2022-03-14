@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   get("/friends/requests", { :controller => "friends", :action => "requests" })
   
-  get("/friends/:path_id", { :controller => "friends", :action => "show" })
+  get("/friends/:path_id", { :controller => "friends", :action => "show_location_to_friends" })
   
   # UPDATE
 

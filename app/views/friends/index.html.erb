@@ -13,7 +13,6 @@
       Add a new friend
     </h2>
 
-
     <form action="/add_friend" method="post">
       <div>
         <label for="username">
@@ -28,6 +27,7 @@
       <button>
         Add friend
       </button>
+      
     </form>
   </div>
 </div>
@@ -80,6 +80,12 @@
 
 
         </td>
+
+    <td>
+      <a href="/friends/<%= @user.id %>">Show in map</a>
+    </td>
+
+
       </tr>
       <% end %>
     </table>

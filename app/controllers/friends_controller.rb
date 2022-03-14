@@ -17,33 +17,70 @@ class FriendsController < ApplicationController
     render({ :template => "friends/index.html.erb" })
   end
 
-  def show
+  def show_location_to_friends
     the_id = params.fetch("path_id")
 
     matching_friends = Friend.where({ :id => the_id })
 
     @the_friend = matching_friends.at(0)
 
-    render({ :template => "friends/show.html.erb" })
+    friend_in_location = Location.where({ :owner_id => the_id }).at(0)
+
+    @friend_location = friend_in_location.address
+
+
+    @gmap_key = ENV.fetch("GMAPS_KEY")
+       
+     @maps_url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + @friend_location + "&key=" + @gmap_key
+ 
+     @raw_json_string = open(@maps_url).read
+ 
+     @parsed_json = JSON.parse(@raw_json_string)
+ 
+     @results_array = @parsed_json.fetch("results")
+ 
+     @first_result = @results_array.at(0)
+     
+     @geometry_hash = @first_result.fetch("geometry")
+ 
+     @location_hash = @geometry_hash.fetch("location")
+ 
+     @latitude = @location_hash.fetch("lat")
+     @longitude = @location_hash.fetch("lng")
+  
+     @address_components_hash = @first_result.fetch("formatted_address")
+
+    render({ :template => "friends/show_location_to_friends.html.erb" })
   end
+
 
   def create
     the_friend = Friend.new
     the_friend.owner_id = params.fetch("query_user_id")
-
     influencer = User.where({ :username => params.fetch("username") }).at(0)
-    the_friend.influencer_id = influencer.id
 
-    the_friend.status = "pending"
+      if influencer == nil
 
+      redirect_to("/friends", { :alert => "Request failed" })
 
-    if the_friend.valid?
-      the_friend.save
-      redirect_to("/friends", { :notice => "Request sent succesfully" })
-    else
-      redirect_to("/friends", { :notice => "Request failed" })
-    end
+      else
+
+      the_friend.influencer_id = influencer.id
+  
+      the_friend.status = "pending"
+  
+  
+      if the_friend.valid?
+        the_friend.save
+        redirect_to("/friends", { :notice => "Request sent succesfully" })
+      else
+        redirect_to("/friends", { :alert => "Request failed" })
+      end
+    end   
   end
+
+
+
 
   def accept
 
