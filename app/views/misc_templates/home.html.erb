@@ -1,29 +1,23 @@
-|home page
-
-
 <%if session.fetch(:user_id) != nil %>
 
 
 <dl>
-<div class="alert alert-primary" role="alert">
 
   <dd>
-    <a href="/address_form">
-      Let you friends know where you will be
-    </a>
+    <a class="btn btn-primary btn-lg btn-block" href="/address_form" role="button">Let you friends know where you will be</a>
   </dd>
 
 </dl>
   </div>
 
   <dd>
-    <a href="/friends">
-      Friends
-    </a>
-  </dd>
+   <a class="btn btn-secondary btn-lg btn-block" href="/friends" role="button">Check where your friends are</a>
+     </dd>
 
 <% else %>
 
-Sign in to start!
+<div class="alert alert-primary" role="alert">
+  Sign in to start!
+</div>
 
 <% end %>
