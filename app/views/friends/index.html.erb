@@ -1,16 +1,8 @@
-
-<style>
-  * {
-    border: thin red solid;
-  }
-
-
-</style>
-
-
 <a href="/friends/requests">
-  Pending Requests
+  
 </a>
+<a class="btn btn-warning" href="/friends/requests" role="button">Pending Requests</a>
+
 
 
 <hr>
@@ -49,27 +41,17 @@
   </div>
 </div>
 
-
-<hr>
-<div>
-  <div>
-    <table border="1">
-      <tr>
-
-        <th>
-          Influencer
-        </th>
-
-        <th>
-          Location
-        </th>
-
-
-        <th>
-        </th>
-      </tr>
-
-      <% @list_of_followed.each do |a_friend| %>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Influencer</th>
+      <th scope="col">Location</th>
+      <th scope="col">See a map of the location!</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+     <% @list_of_followed.each do |a_friend| %>
       <tr>
 
 
@@ -96,14 +78,9 @@
 
       </tr>
       <% end %>
-    </table>
-  </div>
-</div>
-<hr>
-
-
-
-
+    </tr>
+  </tbody>
+</table>
 
 <div>
   <div>
@@ -114,6 +91,43 @@
 </div>
 
 
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">Follower</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+      <% @list_of_followers %>
+
+      <% @list_of_followers.each do |a_friend| %>
+      <tr>
+ 
+        <td>
+          <% @user = User.where({ :id => a_friend.owner_id }).at(0) %>
+
+          <%= @user.username %>
+        </td>
+
+        <td>
+          <form action="/delete_friend" method="post">
+            <input name="influencer_id" type="hidden" value="<%= session.fetch(:user_id) %>">
+            <input name="follower_id" type="hidden" value="<%= a_friend.owner_id %>">
+
+        <button type="button" class="btn btn-danger">Delete Follower</button>
+        </td>
+
+
+      </tr>
+      <% end %>
+
+  </tbody>
+</table>
+
+
+
+
 <hr>
 <div>
   <div>
@@ -121,7 +135,7 @@
       <tr>
 
         <th>
-          Follower
+          
         </th>
 
         <th>
