@@ -1,8 +1,16 @@
-<hr>
-<div>
-  <div>
-    <table border="1">
 
+
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Request From</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
       <% @list_of_requests.each do |a_friend| %>
 
       <% if a_friend.status == "pending" %>
@@ -13,7 +21,7 @@
      
         <% username = User.where({ :id => a_friend.owner_id }).at(0) %>
 
-        Request from: <%= username.username %>
+        <%= username.username %>
         </td>
         <td>
 
@@ -21,9 +29,7 @@
             <input name="influencer_id" type="hidden" value="<%= session.fetch(:user_id) %>">
             <input name="follower_id" type="hidden" value="<%= a_friend.owner_id %>">
 
-          <button>
-            Accept
-          </button>
+          <button type="button" class="btn btn-success">Accept</button>
          </form>
 
          </td>
@@ -34,9 +40,7 @@
             <input name="influencer_id" type="hidden" value="<%= session.fetch(:user_id) %>">
             <input name="follower_id" type="hidden" value="<%= a_friend.owner_id %>">
 
-          <button>
-            Reject
-          </button>
+<button type="button" class="btn btn-danger">Reject</button>
          </form>
 
         </td>
@@ -46,8 +50,9 @@
       <% end %>
       
       <% end %>
-    </table>
-  </div>
-</div>
+    </tr>
+   </tbody>
+</table>
 
-<hr>
+
+
