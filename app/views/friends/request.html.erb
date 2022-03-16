@@ -17,33 +17,37 @@
       
       <% #follower = User.where({ :id => a_friend.owner_id}) %>
       <tr>
-        <td>
+        <th>
      
         <% username = User.where({ :id => a_friend.owner_id }).at(0) %>
 
         <%= username.username %>
-        </td>
-        <td>
+        </th>
+        <th>
 
           <form action="/accept" method="post">
             <input name="influencer_id" type="hidden" value="<%= session.fetch(:user_id) %>">
             <input name="follower_id" type="hidden" value="<%= a_friend.owner_id %>">
 
-          <button type="button" class="btn btn-success">Accept</button>
+          <button>
+            Accept
+          </button>
          </form>
 
-         </td>
+        </th>
 
-
-        <td>
+        <th>
           <form action="/reject"  method="post" >
             <input name="influencer_id" type="hidden" value="<%= session.fetch(:user_id) %>">
             <input name="follower_id" type="hidden" value="<%= a_friend.owner_id %>">
 
-<button type="button" class="btn btn-danger">Reject</button>
+          <button>
+            Reject
+          </button>
          </form>
 
-        </td>
+        </th>
+
 
       <% else %>
 

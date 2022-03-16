@@ -115,11 +115,11 @@
             <input name="influencer_id" type="hidden" value="<%= session.fetch(:user_id) %>">
             <input name="follower_id" type="hidden" value="<%= a_friend.owner_id %>">
 
-        <button type="button" class="btn btn-danger">Delete Follower</button>
+          <button>
+            Delete Follower
+          </button>
         </td>
 
-
-      </tr>
       <% end %>
 
   </tbody>
